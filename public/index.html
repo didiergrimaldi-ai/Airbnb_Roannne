@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Logements vélo — Saint-Étienne → Roanne</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="page-shell">
+      <header class="hero">
+        <div>
+          <p class="eyebrow">Logements vélo</p>
+          <h1>Logements vélo — Saint-Étienne → Roanne</h1>
+          <p class="subtitle">3 personnes · 20 → 21 juin · proche du GPX</p>
+        </div>
+        <div class="note-card">
+          <strong>Note :</strong>
+          <p>Demander aux participants s'ils veulent que je leur trouve un endroit pour dîner le soir, je peux sur la route faire un Delivery.</p>
+        </div>
+      </header>
+
+      <section id="places" class="cards-grid" aria-live="polite">
+        <p class="loading">Chargement des logements...</p>
+      </section>
+    </main>
+
+    <script>
+      async function loadPlaces() {
+        const container = document.getElementById('places');
+        try {
+          const response = await fetch('/api/places');
+          const places = await response.json();
+
+          container.innerHTML = places.map(place => `
+            <article class="card">
+              <h2>${place.name}</h2>
+              <p class="meta"><strong>Zone :</strong> ${place.area}</p>
+              <p>${place.reason}</p>
+              <p class="distance"><strong>Distance :</strong> ${place.distance}</p>
+              <a class="button" href="${place.airbnbUrl}" target="_blank" rel="noopener noreferrer">Voir sur Airbnb</a>
+            </article>
+          `).join('');
+        } catch (error) {
+          container.innerHTML = '<p class="error">Impossible de charger les logements pour le moment.</p>';
+          console.error(error);
+        }
+      }
+
+      loadPlaces();
+    </script>
+  </body>
+</html>

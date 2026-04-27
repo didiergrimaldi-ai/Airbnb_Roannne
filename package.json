@@ -1,0 +1,15 @@
+{
+  "name": "logements-velo-roanne",
+  "version": "1.0.0",
+  "description": "Petit projet Node.js/Express pour lister des logements autour de Roanne / Le Coteau.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.4"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
